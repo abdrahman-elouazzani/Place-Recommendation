@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav1"
+            android:icon="@mipmap/baseline_share_black_24"
+            android:title="navigation item1" />
+        <item
+            android:id="@+id/nav2"
+            android:icon="@mipmap/baseline_share_black_24"
+            android:title="navigation item" />
+        <item
+            android:id="@+id/nav3"
+            android:icon="@mipmap/baseline_share_black_24"
+            android:title="navigation item3" />
+    </group>
+
+</menu>

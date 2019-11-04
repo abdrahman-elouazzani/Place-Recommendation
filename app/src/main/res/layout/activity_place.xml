@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:expandedTitleMarginStart="60dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="255dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+               />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:minHeight="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/textTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hotel Cafe Restaurant"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="18sp"
+                        android:layout_marginTop="6dp"/>
+
+                    <!--   Rating Bar Indicator Layout   -->
+                    <LinearLayout
+                        android:id="@+id/rating_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp">
+
+                        <RatingBar
+                            android:id="@+id/ratingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            style="?attr/ratingBarStyleSmall"
+                            android:numStars="5"
+                            android:rating="4.5"
+                            />
+                        <TextView
+                            android:id="@+id/moyenRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4.5 (144)"
+                            android:paddingLeft="10dp"
+                            android:layout_gravity="center"/>
+
+                    </LinearLayout>
+
+                    <!--   Description Layout   -->
+                    <RelativeLayout
+                        android:id="@+id/description_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp">
+
+                        <ImageButton
+                            android:id="@+id/expand_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#00FFFFFF"
+                            android:layout_alignParentRight="true"
+                            app:srcCompat="@mipmap/baseline_expand_more_black_24"
+                            android:tint="#333"
+                            android:onClick="expandClick"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Google - 15 min ago"
+                                android:textColor="@color/colorTitle"
+                                android:textSize="15sp" />
+                            <TextView
+                                android:id="@+id/description"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15sp"
+                                android:layout_marginTop="16dp"
+                                android:text="@string/description"
+                                android:visibility="gone"
+                                />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <!--   FeedBack Widgets    -->
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginBottom="18dp"
+                        android:background="#E9E7E7" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorTitle"
+                        android:text="Rate This Place"/>
+                    <RatingBar
+                        android:id="@+id/addRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:saveEnabled="true"
+                        android:progressBackgroundTint="@color/colorRatingBarBackground"
+                        android:progressTint="@color/colorAccent"
+                      />
+                    <Button
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:id="@+id/sendFeedBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Send FeedBack"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:textColor="@color/colorAccent"
+                        android:backgroundTint="@color/colorWhite"
+                       />
+
+                </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

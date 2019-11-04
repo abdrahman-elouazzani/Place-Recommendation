@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">VISIT ME</string>
+    <string name="action_settings">Settings</string>
+    <string name="description">
+        Marrakech is the second largest city of Morocco and is known as the Red City.
+        It has about 800,000 inhabitants and most of the houses are colored read.
+        Marrakech MedinaIt is truly a colorful city of entertainment and is called the one of the pearls of morocco.
+        It is the major economic center and has several upcoming industries and markets.
+    </string>
+    <string-array name="iamges_url">
+        <item>R.drawable.image_url1</item>
+        <item>R.drawable.image_url2</item>
+        <item>R.drawable.image_url3</item>
+    </string-array>
+    <!---->
+    <string name="hint_title">Title</string>
+    <string name="hint_city">City</string>
+    <string name="hint_select_type">Select Type</string>
+    <string name="hint_import_images">Import Image</string>
+    <string name="hint_description">Place Description</string>
+    <string name="hint_address" >Address</string>
+    <string name="err_msg_title">Title is Empty</string>
+    <string name="err_msg_city">City is Empty</string>
+    <string name="err_msg_address">Address is Empty</string>
+    <string name="err_msg_import_image">Import Image</string>
+    <string name="err_msg_description">Description must at Last 80 Characters </string>
+    <string name="err_msg_type">Type is Empty</string>
+
+    <string name="action_share">SHARE</string>
+    <string name="action_more">EXPLORE</string>
+    <string name="transition_string">hello</string>
+
+</resources>
