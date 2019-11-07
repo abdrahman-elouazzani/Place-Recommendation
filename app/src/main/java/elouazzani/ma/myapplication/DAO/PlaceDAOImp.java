@@ -4,44 +4,26 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import elouazzani.ma.myapplication.DBSQLITE.DB;
 import elouazzani.ma.myapplication.Model.Place;
 
-public class PlaceDAOImp extends SQLiteOpenHelper implements PlaceDAO{
-    // Database Version
-    private static final int DATABASE_VERSION = 1;
-
-    // Database Name
-    private static final String DATABASE_NAME = "places_db";
+public class PlaceDAOImp  implements PlaceDAO{
+    private DB mdb;
 
     public PlaceDAOImp(@Nullable Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(PlaceDAO.CREATE_TABLE);
-
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+PlaceDAO.TABLE_NAME);
-        //
-        onCreate(db);
-
+        mdb=new DB(context);
     }
 
     @Override
     public boolean AddPlaceItem(Place place) {
         // get writable database as we want to write data
-        SQLiteDatabase db=this.getWritableDatabase();
+        SQLiteDatabase db=mdb.getWritableDatabase();
         ContentValues values=new ContentValues();
         values.put(PlaceDAO.COLUMN_TITLE,place.getTitle());
         values.put(PlaceDAO.COLUMN_CITY,place.getCity());
@@ -60,7 +42,7 @@ public class PlaceDAOImp extends SQLiteOpenHelper implements PlaceDAO{
     @Override
     public Place getPlaceItem(long id) {
         // get readable database as we are not inserting anything
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = mdb.getReadableDatabase();
         String[] columns=new String[]{
                 PlaceDAO.COLUMN_ID,PlaceDAO.COLUMN_TITLE,PlaceDAO.COLUMN_CITY,PlaceDAO.COLUMN_TYPE,
                 PlaceDAO.COLUMN_ADDRESS,PlaceDAO.COLUMN_DESCRIPTION,PlaceDAO.COLUMN_IMAGE_BYTE
@@ -95,7 +77,7 @@ public class PlaceDAOImp extends SQLiteOpenHelper implements PlaceDAO{
         String selectQuery = "SELECT  * FROM " + PlaceDAO.TABLE_NAME + " ORDER BY " +
                 PlaceDAO.COLUMN_TIMESTAMP + " DESC";
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = mdb.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if(cursor.moveToFirst()) {

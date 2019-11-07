@@ -71,13 +71,12 @@
                             android:layout_gravity="center"
                             style="?attr/ratingBarStyleSmall"
                             android:numStars="5"
-                            android:rating="4.5"
                             />
                         <TextView
-                            android:id="@+id/moyenRating"
+                            android:id="@+id/avgRating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="4.5 (144)"
+                            android:text="0.0 (0)"
                             android:paddingLeft="10dp"
                             android:layout_gravity="center"/>
 
@@ -158,6 +157,7 @@
                         android:paddingEnd="8dp"
                         android:textColor="@color/colorAccent"
                         android:backgroundTint="@color/colorWhite"
+                        android:onClick="onClickSendFeedBack"
                        />
 
                 </LinearLayout>
