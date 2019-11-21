@@ -14,6 +14,7 @@ public interface PlaceDAO {
     public static final String COLUMN_ADDRESS = "address";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_IMAGE_BYTE = "image_byte";
+    public static final String COLUMN_RATE = "rate";
     public static final String COLUMN_TIMESTAMP = "timestamp";
 
     // Create table SQL query
@@ -26,11 +27,14 @@ public interface PlaceDAO {
                     + COLUMN_ADDRESS + " TEXT,"
                     + COLUMN_DESCRIPTION + " TEXT,"
                     + COLUMN_IMAGE_BYTE + " BLOG,"
+                    + COLUMN_RATE + " REAL,"
                     + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
                     + ")";
 
     public boolean AddPlaceItem(Place place);
     public Place getPlaceItem(long id);
     public List<Place> getAllPlaces();
+    public boolean updatePlaceByRate(Place place, float rate);
+    public List<Place> search(String keyword);
     public boolean removePlaceItem(Place place);
 }

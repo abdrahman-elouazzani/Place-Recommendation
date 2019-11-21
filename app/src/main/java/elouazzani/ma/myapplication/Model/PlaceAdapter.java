@@ -3,11 +3,13 @@ package elouazzani.ma.myapplication.Model;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -65,40 +67,52 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull PlaceAdapter.ViewHolder holder, int position) {
         final Place place=mPlaceList.get(position);
-        holder.titleText.setText(place.getTitle());
-        Glide.with(context).asBitmap().load(place.getImageByte()).into(holder.thumblnail);
-        FeedBackDAOImp feedBackDAOImp=new FeedBackDAOImp(context);
-        float rate=feedBackDAOImp.averageRatingPlace(place);
-        int total_rating=feedBackDAOImp.totalRatingPlace(place);
-        holder.ratingBarIndic.setRating(rate);
-        holder.ratingInfoText.setText(String.format("%.1f",rate)+"  ("+total_rating+")");
-        holder.thumblnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=(new Intent(v.getContext(), PlaceActivity.class));
-                intent.putExtra("place",place);
-                v.getContext().startActivity(intent);
+        if(place!=null) {
 
-            }
-        });
+            holder.titleText.setText(place.getCity()+" - "+place.getTitle());
+            Glide.with(context).asBitmap().load(place.getImageByte()).into(holder.thumblnail);
+            FeedBackDAOImp feedBackDAOImp=new FeedBackDAOImp(context);
+            float rate=feedBackDAOImp.averageRatingPlace(place);
+            int total_rating=feedBackDAOImp.totalRatingPlace(place);
+            holder.ratingBarIndic.setRating(rate);
+            holder.ratingInfoText.setText(String.format("%.1f",rate)+"  ("+total_rating+")");
 
-        holder.action_explore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=(new Intent(v.getContext(), PlaceActivity.class));
-                intent.putExtra("place",place);
-                v.getContext().startActivity(intent);
-            }
-        });
+            holder.thumblnail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=(new Intent(v.getContext(), PlaceActivity.class));
+                    intent.putExtra("place",place);
+                    v.getContext().startActivity(intent);
 
+                }
+            });
 
+            holder.action_explore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=(new Intent(v.getContext(), PlaceActivity.class));
+                    intent.putExtra("place",place);
+                    v.getContext().startActivity(intent);
+                }
+            });
 
-
+            holder.more_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu popupMenu=new PopupMenu(context,v);
+                    MenuInflater menuInflater=popupMenu.getMenuInflater();
+                    menuInflater.inflate(R.menu.menu_item_place,popupMenu.getMenu());
+                    popupMenu.show();
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mPlaceList.size();
+        if(mPlaceList!=null)
+           return mPlaceList.size();
+        return 0;
     }
 
 

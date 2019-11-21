@@ -1,5 +1,7 @@
 package elouazzani.ma.myapplication;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+import elouazzani.ma.myapplication.DAO.PlaceDAO;
 import elouazzani.ma.myapplication.DAO.PlaceDAOImp;
 import elouazzani.ma.myapplication.Model.Place;
 import elouazzani.ma.myapplication.Model.PlaceAdapter;
@@ -26,6 +30,7 @@ import elouazzani.ma.myapplication.Model.PlaceAdapter;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private List<Place> placeList;
     private BottomSheetDialog bottomSheetDialog;
+    private  RecyclerView recyclerView;
 
 
     @Override
@@ -36,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         PlaceAdapter placeAdapter=new PlaceAdapter(getApplicationContext(),
                getPlaceList());
-        RecyclerView recyclerView=findViewById(R.id.mRecyclerView);
+        recyclerView=findViewById(R.id.mRecyclerView);
         LinearLayoutManager layoutManager=new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
@@ -92,7 +97,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(icon!=null)
                 DrawableCompat.setTint(icon, ContextCompat.getColor(this,R.color.colorWhite));
         }
+
+        // search view
+         SearchView searchView= (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
+         SearchManager searchManager= (SearchManager) getSystemService(SEARCH_SERVICE);
+         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+         searchView.setSubmitButtonEnabled(true);
+         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+             @Override
+             public boolean onQueryTextSubmit(String query) {
+                 searchPlace(query);
+                 return false;
+             }
+
+             @Override
+             public boolean onQueryTextChange(String newText) {
+                 searchPlace(newText);
+                 return false;
+             }
+         });
         return true;
+    }
+
+    private void searchPlace(String keyword) {
+        Context context=getApplicationContext();
+        PlaceDAO placeDAO=new PlaceDAOImp(context);
+        List<Place> places=placeDAO.search(keyword);
+        if (places!=null) {
+            recyclerView.setAdapter(new PlaceAdapter(context,places));
+        }
+
     }
 
     @Override

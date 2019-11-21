@@ -72,15 +72,16 @@ public class PlaceDAOImp  implements PlaceDAO{
 
     @Override
     public List<Place> getAllPlaces() {
-        List<Place> places=new ArrayList<>();
+        List<Place> places=null;
         // Select All Query
         String selectQuery = "SELECT  * FROM " + PlaceDAO.TABLE_NAME + " ORDER BY " +
-                PlaceDAO.COLUMN_TIMESTAMP + " DESC";
+                PlaceDAO.COLUMN_RATE + " DESC";
 
         SQLiteDatabase db = mdb.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if(cursor.moveToFirst()) {
+            places=new ArrayList<>();
             do {
                 Place place=new Place(
                         cursor.getInt(cursor.getColumnIndex(PlaceDAO.COLUMN_ID)),
@@ -96,6 +97,59 @@ public class PlaceDAOImp  implements PlaceDAO{
             }while (cursor.moveToNext());
         }
         db.close();
+        return places;
+    }
+
+    // update rating whene adding new feedback
+    @Override
+    public boolean updatePlaceByRate(Place place, float rate) {
+        SQLiteDatabase db=mdb.getWritableDatabase();
+        try {
+            ContentValues values=new ContentValues();
+            values.put(PlaceDAO.COLUMN_RATE,rate);
+            long id=db.update(PlaceDAO.TABLE_NAME,values,PlaceDAO.COLUMN_ID +" =? ",
+                    new String[]{String.valueOf(place.getId())});
+            if(id>0)
+                return true;
+
+        }catch (Exception e) {
+            return false;
+        }
+        return false;
+
+    }
+
+    @Override
+    public List<Place> search(String keyword) {
+
+        List<Place> places=null;
+        try {
+            SQLiteDatabase db= mdb.getReadableDatabase();
+            Cursor cursor = db.rawQuery("select * from " +PlaceDAO.TABLE_NAME + " where "
+                    + PlaceDAO.COLUMN_CITY + " like ?"+ " OR "+ PlaceDAO.COLUMN_TITLE + " like ?"
+                    +" ORDER BY "+PlaceDAO.COLUMN_RATE+" DESC ",
+                    new String[] { "%" + keyword + "%" ,"%" + keyword + "%" });
+            if(cursor.moveToFirst()) {
+                places=new ArrayList<>();
+                do {
+                    Place place=new Place(
+                            cursor.getInt(cursor.getColumnIndex(PlaceDAO.COLUMN_ID)),
+                            cursor.getString(cursor.getColumnIndex(PlaceDAO.COLUMN_TITLE)),
+                            cursor.getString(cursor.getColumnIndex(PlaceDAO.COLUMN_CITY)),
+                            cursor.getString(cursor.getColumnIndex(PlaceDAO.COLUMN_TYPE)),
+                            cursor.getString(cursor.getColumnIndex(PlaceDAO.COLUMN_ADDRESS)),
+                            cursor.getString(cursor.getColumnIndex(PlaceDAO.COLUMN_DESCRIPTION)),
+                            cursor.getBlob(cursor.getColumnIndex(PlaceDAO.COLUMN_IMAGE_BYTE))
+                    );
+                    places.add(place);
+
+                }while (cursor.moveToNext());
+            }
+
+        }catch (Exception e){
+             places=null;
+        }
+
         return places;
     }
 

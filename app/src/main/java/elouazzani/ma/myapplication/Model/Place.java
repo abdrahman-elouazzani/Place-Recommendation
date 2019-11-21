@@ -6,7 +6,15 @@ public class Place implements Serializable {
     private long id;
     private String title,description,address,city,type;
     private byte[] imageByte;
-    private int drawableImg;
+    private float rate;
+
+    public float getRate() {
+        return rate;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
+    }
 
     public long getId() {
         return id;
@@ -59,13 +67,6 @@ public class Place implements Serializable {
         this.imageByte = imageByte;
     }
 
-    public int getDrawableImg() {
-        return drawableImg;
-    }
-
-    public void setDrawableImg(int drawableImg) {
-        this.drawableImg = drawableImg;
-    }
 
     public Place(String title, String city,String type, String address, String description, byte[] imageByte) {
 

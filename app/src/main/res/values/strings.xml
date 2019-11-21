@@ -7,11 +7,7 @@
         Marrakech MedinaIt is truly a colorful city of entertainment and is called the one of the pearls of morocco.
         It is the major economic center and has several upcoming industries and markets.
     </string>
-    <string-array name="iamges_url">
-        <item>R.drawable.image_url1</item>
-        <item>R.drawable.image_url2</item>
-        <item>R.drawable.image_url3</item>
-    </string-array>
+
     <!---->
     <string name="hint_title">Title</string>
     <string name="hint_city">City</string>

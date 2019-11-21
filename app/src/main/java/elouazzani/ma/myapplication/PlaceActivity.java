@@ -20,6 +20,8 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import elouazzani.ma.myapplication.DAO.FeedBackDAOImp;
+import elouazzani.ma.myapplication.DAO.PlaceDAO;
+import elouazzani.ma.myapplication.DAO.PlaceDAOImp;
 import elouazzani.ma.myapplication.Model.FeedBack;
 import elouazzani.ma.myapplication.Model.Place;
 
@@ -134,8 +136,11 @@ public class PlaceActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         boolean statu=feedBackDAOImp.saveFeedback(new FeedBack(rate,null,place));
-                        if (statu)
+                        if (statu) {
                             Toast.makeText(PlaceActivity.this, "FeedBack send success", Toast.LENGTH_LONG).show();
+                            PlaceDAO placeDAO=new PlaceDAOImp(getApplicationContext());
+                            placeDAO.updatePlaceByRate(place,feedBackDAOImp.averageRatingPlace(place));
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
