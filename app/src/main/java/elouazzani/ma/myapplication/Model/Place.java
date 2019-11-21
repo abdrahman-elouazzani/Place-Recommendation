@@ -8,13 +8,9 @@ public class Place implements Serializable {
     private byte[] imageByte;
     private float rate;
 
-    public float getRate() {
-        return rate;
-    }
+    public float getRate() { return rate; }
 
-    public void setRate(float rate) {
-        this.rate = rate;
-    }
+    public void setRate(float rate) { this.rate = rate; }
 
     public long getId() {
         return id;

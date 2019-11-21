@@ -12,13 +12,22 @@ import elouazzani.ma.myapplication.DAO.PlaceDAO;
 public class DB extends SQLiteOpenHelper {
 
     // Database Version
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 4;
 
     // Database Name
     public static final String DATABASE_NAME = "visit_me_db";
 
     public DB(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        if (!db.isReadOnly()) {
+            // Enable foreign key constraints
+            db.execSQL("PRAGMA foreign_keys=ON;");
+        }
     }
 
     @Override

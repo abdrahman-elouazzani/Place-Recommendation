@@ -21,11 +21,12 @@ public interface FeedBackDAO {
                     + COLUMN_COMMENT + " TEXT,"
                     + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
                     + COLUMN_PLACE_ID + " INTEGER,"
-                    + "FOREIGN KEY("+ COLUMN_PLACE_ID+ ") REFERENCES "+PlaceDAO.TABLE_NAME+" (id)"
+                    + "FOREIGN KEY("+ COLUMN_PLACE_ID+ ") REFERENCES "+PlaceDAO.TABLE_NAME+" (id)"+" ON DELETE CASCADE"
                     + ")";
 
     public boolean saveFeedback(FeedBack feedBack);
     public float averageRatingPlace(Place place);
     public int totalRatingPlace(Place place);
+    public boolean removeFeedBack(Place place);
 
 }

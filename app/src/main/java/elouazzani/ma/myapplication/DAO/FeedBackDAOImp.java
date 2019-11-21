@@ -68,5 +68,19 @@ public class FeedBackDAOImp  implements FeedBackDAO {
         return result;
     }
 
+    @Override
+    public boolean removeFeedBack(Place place) {
+        SQLiteDatabase db=mdb.getWritableDatabase();
+        long id=db.delete(FeedBackDAO.TABLE_NAME,FeedBackDAO.COLUMN_PLACE_ID+" =?",
+                new String[]{String.valueOf(place.getId())});
+        if(id>0) {
+
+            return true;
+        }
+
+
+        return false;
+    }
+
 
 }

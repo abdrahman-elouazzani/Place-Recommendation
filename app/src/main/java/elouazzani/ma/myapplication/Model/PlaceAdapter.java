@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import elouazzani.ma.myapplication.DAO.FeedBackDAOImp;
+import elouazzani.ma.myapplication.DAO.PlaceDAOImp;
 import elouazzani.ma.myapplication.PlaceActivity;
 import elouazzani.ma.myapplication.R;
 
@@ -65,7 +68,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlaceAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PlaceAdapter.ViewHolder holder, final int position) {
         final Place place=mPlaceList.get(position);
         if(place!=null) {
 
@@ -102,6 +105,24 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
                     PopupMenu popupMenu=new PopupMenu(context,v);
                     MenuInflater menuInflater=popupMenu.getMenuInflater();
                     menuInflater.inflate(R.menu.menu_item_place,popupMenu.getMenu());
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.item_remove:
+                                    PlaceDAOImp placeDAOImp=new PlaceDAOImp(context);
+                                    if(placeDAOImp.removePlaceItem(place)) {
+                                        mPlaceList.remove(position);
+                                        notifyItemRemoved(position);
+                                        notifyItemRangeRemoved(position,mPlaceList.size());
+                                        Toast.makeText(context, "item removed", Toast.LENGTH_LONG).show();
+                                    }
+
+
+                            }
+                            return false;
+                        }
+                    });
                     popupMenu.show();
                 }
             });

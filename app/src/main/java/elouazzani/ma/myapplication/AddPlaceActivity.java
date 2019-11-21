@@ -90,7 +90,7 @@ public class AddPlaceActivity extends AppCompatActivity {
                         inputCity.getText().toString().trim(),
                         inputType.getText().toString().trim(),
                         inputAddress.getText().toString().trim(),
-                        getString(R.string.description),
+                        inputDescription.getText().toString().trim(),
                         bitmapToBytes(bitmap)
                 );
                 PlaceDAOImp placeDAOImp=new PlaceDAOImp(getApplicationContext());

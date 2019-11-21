@@ -15,8 +15,9 @@ import elouazzani.ma.myapplication.Model.Place;
 
 public class PlaceDAOImp  implements PlaceDAO{
     private DB mdb;
-
+    private Context context;
     public PlaceDAOImp(@Nullable Context context) {
+        this.context=context;
         mdb=new DB(context);
     }
 
@@ -153,8 +154,20 @@ public class PlaceDAOImp  implements PlaceDAO{
         return places;
     }
 
+    // delete place from database
     @Override
     public boolean removePlaceItem(Place place) {
+
+        SQLiteDatabase db=mdb.getWritableDatabase();
+
+        long id=db.delete(PlaceDAO.TABLE_NAME,PlaceDAO.COLUMN_ID+" =?",
+                new String[]{String.valueOf(place.getId())});
+        if(id>0) {
+
+            return true;
+        }
+
+
         return false;
     }
 }
