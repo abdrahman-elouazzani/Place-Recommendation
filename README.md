@@ -15,7 +15,7 @@ android application allows you to see the best places according to feedback and 
 ## Installation
 Clone this repository and import into **Android Studio**
 ```bash
-git clone git@github.com:wolox/Place-Recommandation.git
+git clone git@github.com:wolox/Place-Recommendation.git
 ```
 ##  Libraries Used
 - The Front-End Using [the Material Design](https://material.io/design/) library contains : 
