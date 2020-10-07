@@ -1,5 +1,5 @@
 
-# Place Recommandation
+# Place Recommendation
 android application allows you to see the best places according to feedback and the place details (title, description, photos, feedback, location ...) and also managed places (add, delete, update ...), search for a the best places according to city .. .
 
 ## Features
